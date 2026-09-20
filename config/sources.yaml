@@ -1,0 +1,326 @@
+# Source registry. Mirrors Sheet 2 of the Phase 1 workbook.
+# Every source that the pipeline may fetch must appear here first.
+# status: verified | needs_verification | gap
+# licence: ogl_india | official_unstated | third_party
+
+sources:
+  - id: cg_agri_directorate
+    name: Directorate of Agriculture, Government of Chhattisgarh
+    base_url: https://agriportal.cg.nic.in/
+    modality: html_table
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+
+  - id: cg_mandi_board
+    name: Chhattisgarh State Agricultural Marketing (Mandi) Board
+    base_url: https://agriportal.cg.nic.in/samb/
+    modality: html_table
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [location]
+
+  - id: cg_fcs_procurement_policy
+    name: Department of Food, Civil Supplies and Consumer Protection
+    base_url: https://fcs.cg.gov.in/
+    modality: scanned_pdf_ocr
+    languages: [hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [procurement]
+    notes: Supplies the non English document required at the Phase 2 gate.
+
+  - id: cg_khadya_pds
+    name: Food and Civil Supplies Department, PDS Online portal
+    base_url: https://khadya.cg.nic.in/
+    modality: html_table
+    languages: [hi, en]
+    licence: official_unstated
+    status: verified
+    maps_to: [procurement]
+    notes: Aggregate views only. Record level citizen lookup views are out of scope.
+
+  - id: ogd_procurement_centres
+    name: OGD India, paddy procurement centres in Chhattisgarh
+    base_url: https://www.data.gov.in/catalog/details-paddy-procurement-centres-chhattisgarh
+    modality: api_csv
+    languages: [en]
+    licence: ogl_india
+    status: verified
+    maps_to: [location, procurement]
+
+  - id: ogd_mandi_prices
+    name: OGD India, daily mandi price dataset
+    base_url: https://www.data.gov.in/
+    modality: api_csv
+    languages: [en]
+    licence: ogl_india
+    status: verified
+    maps_to: [prices]
+    requires_api_key: true
+
+  - id: agmarknet
+    name: Agmarknet, Directorate of Marketing and Inspection
+    base_url: https://agmarknet.gov.in/
+    modality: html_table
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [prices]
+
+  - id: enam
+    name: National Agriculture Market (e-NAM)
+    base_url: https://www.enam.gov.in/
+    modality: html_table
+    languages: [en, hi]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [prices]
+
+  - id: cgswc
+    name: Chhattisgarh State Warehousing Corporation
+    base_url: https://cgswc.cg.gov.in/
+    modality: html_table
+    languages: [en]
+    licence: official_unstated
+    status: verified
+    maps_to: [storage]
+
+  - id: wdra
+    name: Warehousing Development and Regulatory Authority
+    base_url: https://wdra.gov.in/
+    modality: digital_pdf
+    languages: [en]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [storage]
+
+  - id: fci_depots
+    name: Food Corporation of India, depot and capacity listings
+    base_url: https://fci.gov.in/
+    modality: html_table
+    languages: [en]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [storage]
+
+  - id: imd_agrimet
+    name: IMD Agricultural Meteorology Division, district crop advisories
+    base_url: https://imdagrimet.gov.in/cropAdvisory_3.php
+    modality: html_table
+    languages: [en]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+    update_days: [tuesday, friday]
+
+  - id: imd_gkms
+    name: IMD Gramin Krishi Mausam Seva state bulletins
+    base_url: https://mausam.imd.gov.in/
+    modality: digital_pdf
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+
+  - id: imd_public_api
+    name: IMD Public API, state wise rainfall and AWS observations
+    base_url: https://api.imd.gov.in/public/api_reference.html
+    modality: api_csv
+    languages: [en]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+    notes: >
+      Weather confound control. Needed to avoid attributing to advisories what
+      rainfall explains. State wise, so station observations need spatial
+      aggregation onto districts before they join.
+
+  - id: nasa_power
+    name: NASA POWER daily API, agroclimatology
+    base_url: https://power.larc.nasa.gov/docs/services/api/temporal/daily/
+    modality: api_csv
+    languages: [en]
+    licence: third_party
+    status: verified
+    maps_to: [advisories]
+    notes: >
+      Second weather source. Half degree grid is coarse for district analysis
+      and it is modelled reanalysis rather than station measurement, but it is
+      a real API with a long uninterrupted series.
+
+  - id: cgmfp_federation
+    name: Chhattisgarh State Minor Forest Produce Federation
+    base_url: https://www.cgmfpfed.org/new/
+    modality: scanned_pdf_ocr
+    languages: [hi, en]
+    licence: official_unstated
+    status: verified
+    maps_to: [procurement]
+    notes: Tendu leaf declared rates. Second non English scanned source.
+
+  - id: descg
+    name: Directorate of Economics and Statistics, Government of Chhattisgarh
+    base_url: https://descg.gov.in/
+    modality: digital_pdf
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [commodity]
+
+  - id: desagri_state_reports
+    name: DES, Ministry of Agriculture and Farmers Welfare, state reports
+    base_url: https://desagri.gov.in/
+    modality: digital_pdf
+    languages: [en]
+    licence: official_unstated
+    status: verified
+    maps_to: [commodity]
+
+  - id: desagri_glance
+    name: Agricultural Statistics at a Glance
+    base_url: https://desagri.gov.in/
+    modality: digital_pdf
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [commodity]
+    parallel_editions: true
+    notes: >
+      English and Hindi editions are parallel translations of the same tables.
+      Extract from the Hindi edition and check against the English edition to
+      obtain a Hindi extraction accuracy figure without hand labelling every example.
+
+  - id: igkv
+    name: Indira Gandhi Krishi Vishwavidyalaya, Raipur
+    base_url: https://igkv.ac.in/
+    modality: digital_pdf
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+
+  - id: upag
+    name: Unified Portal for Agricultural Statistics
+    base_url: https://upag.gov.in/
+    modality: api_csv
+    languages: [en]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [commodity]
+
+  - id: bhuvan
+    name: Bhuvan, ISRO and NRSC
+    base_url: https://bhuvan.nrsc.gov.in/
+    modality: api_csv
+    languages: [en]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [location]
+
+  - id: ogd_district_crop_production
+    name: OGD India, district wise season wise crop production statistics
+    base_url: https://www.data.gov.in/resource/district-wise-season-wise-crop-production-statistics-1997
+    modality: api_csv
+    languages: [en]
+    licence: ogl_india
+    status: verified
+    maps_to: [commodity, location]
+    notes: Deepest structured production series. Confirm the most recent year actually present.
+
+  - id: ogd_paddy_sown_area
+    name: OGD India, district wise paddy sown area in Chhattisgarh 2018-19 to 2022-23
+    base_url: https://www.data.gov.in/resource/district-wise-details-paddy-sown-area-state-chhattisgarh-2018-19-2022-23
+    modality: api_csv
+    languages: [en]
+    licence: ogl_india
+    status: verified
+    maps_to: [commodity, location]
+
+  - id: desagri_land_use
+    name: Land Use Statistics at a Glance
+    base_url: https://desagri.gov.in/document-report-category/land-use-statistics-at-a-glance/
+    modality: digital_pdf
+    languages: [en, hi]
+    licence: official_unstated
+    status: verified
+    maps_to: [location]
+    notes: Denominator for area based normalisation, for example procurement per hectare sown.
+
+  - id: icrisat_dld
+    name: ICRISAT District Level Database for Indian Agriculture and Allied Sectors
+    base_url: https://data.icrisat.org/district-level-data/
+    modality: api_csv
+    languages: [en]
+    licence: third_party
+    licence_terms: Free to copy and distribute with acknowledgement through the published DOI
+    status: verified
+    maps_to: [commodity, prices, location]
+    notes: >
+      Series ends around 2015 to 2017, so it is a historical backbone and cannot
+      support current season analysis or the 2022 district reorganisation. Its
+      apportioned and unapportioned datasets are a published method for handling
+      boundary changes, which is the approach to borrow for 2022.
+
+  - id: icrisat_apy
+    name: ICRISAT DLD, district wise yearly area, yield and production
+    base_url: https://data.icrisat.org/dld/src/gdp.html
+    modality: api_csv
+    languages: [en]
+    licence: third_party
+    licence_terms: Free to copy and distribute with acknowledgement through the published DOI
+    status: verified
+    maps_to: [commodity]
+    notes: Yield is derived from area and production, not measured, so it cannot check either independently.
+
+  - id: icar_kharif_advisories
+    name: ICAR Kharif Agro-Advisories for Farmers 2025
+    base_url: https://www.icar.gov.in/sites/default/files/Circulars/ICAR%20En-Kharif%20Agro-Advisories%20for%20Farmers%202025.pdf
+    modality: digital_pdf
+    languages: [en]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+    notes: Clean text layer. The easy case against which the OCR path is compared.
+
+  - id: icar_regional_languages
+    name: ICAR Kharif Agro-Advisories 2025, regional languages edition
+    base_url: https://icar.gov.in/en/icar-kharif-agro-advisories-farmers-2025-regional-languages-edition
+    modality: scanned_pdf_ocr
+    languages: [hi, mixed]
+    licence: official_unstated
+    status: verified
+    maps_to: [advisories]
+
+  - id: cg_revenue_agristats
+    name: Chhattisgarh Revenue and Disaster Management Department, agricultural statistics
+    base_url: https://revenue.cg.nic.in/
+    modality: digital_pdf
+    languages: [hi]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [commodity, prices]
+    notes: >
+      Specific statistics file path not confirmed. An earlier draft recorded a URL
+      containing a typo and a malformed path. Locate the current document from the
+      department index before relying on it.
+
+  - id: cg_revenue_bazar_bhav
+    name: Chhattisgarh Revenue Department, rural retail prices and agricultural wages
+    base_url: https://revenue.cg.nic.in/bazar_bhav/loginNewpage.aspx
+    modality: html_table
+    languages: [hi]
+    licence: official_unstated
+    status: needs_verification
+    maps_to: [prices]
+    notes: Login gated, so automated extraction feasibility is not established. Candidate, not core.
+
+gaps:
+  - name: Chhattisgarh cold storage and horticulture capacity registry
+    reason: No verifiable state level portal located. Storage coverage is therefore
+      not total state capacity and this is reported as a limitation.
+  - name: Chhattisgarh Mandi Board historical price archive
+    reason: Board publishes notifications but no price series. Price time series
+      depends entirely on national platforms, a single point of dependency.
