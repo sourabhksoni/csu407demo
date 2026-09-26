@@ -116,22 +116,3 @@ python evaluation/harness.py --config evaluation/configs/baseline.yaml --dry-run
 python models/train_lora.py --dry-run
 sqlite3 agri.db < db/schema.sql
 ```
-
-## Phase 1 status
-
-- 36 candidate sources reviewed: 26 verified live, 8 needing verification, 2
-  retained as documented data gaps. Verified means the source page was checked
-  against live evidence; it does not mean a file has been downloaded. That is
-  tracked separately and is currently N on every row.
-- Knowledge base schema designed and frozen
-- Agent and tool architecture drafted, now including a voice/audio modality
-  and a Whisper based `tools.audio_transcribe` stage
-- Commodity scope frozen to four — Paddy, Maize, Chana (Bengal gram) and
-  Tendu leaf — including one control commodity with no administered price
-- Crop stages extended to cover seed and farm planning information, alongside
-  monitoring, production, aggregation/storage/logistics and market/supply
-  chain, closing the Phase 1 stage-coverage gap (see
-  `docs/phase1/statement_of_purpose.md`, section 4b)
-- Evaluation harness and metrics implemented and tested
-- District and commodity normalisation implemented and tested, 20 tests passing
-
