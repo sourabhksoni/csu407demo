@@ -129,14 +129,20 @@ depth stays on the four fact areas while stage coverage is documented rather tha
 ## 4c. Modalities, including voice and audio
 
 The four fact areas already forced API/CSV, HTML, digital PDF and scanned Hindi PDF (section
-3). The seed and farm planning additions bring one more genuinely new modality: voice and
-audio, through the ICAR-IASRI Kisan Call Centre archive (KCC-CHAKSHU), in which farmers'
-phone queries to Farm Tele Advisors are compiled district and month wise. The archive itself
-is distributed as already transcribed query and answer text, so it is read through the
-deterministic `api_csv` path rather than a language model. A `voice_audio` modality and a
-Whisper based `tools.audio_transcribe` stage now exist in the router (`src/router/router.py`,
-`src/tools/audio_transcribe.py`) for the case where raw call recordings are obtained directly,
-for example through a future data sharing request, rather than the pre transcribed export.
+3), and Phase 1 ingestion still runs on exactly those four; no source in the current inventory
+is actually read through a fifth modality. What the seed and farm planning additions do bring
+is the project's first voice and audio origin source: the ICAR-IASRI Kisan Call Centre archive
+(KCC-CHAKSHU), in which farmers' phone queries to Farm Tele Advisors are compiled district and
+month wise. The archive itself is distributed as already transcribed query and answer text, so
+`config/sources.yaml` tags it `api_csv`, matching what is actually read, and it goes through
+the deterministic path rather than a language model. A `voice_audio` value on the `Modality`
+enum and a Whisper based `tools.audio_transcribe` stage now exist in the router
+(`src/router/router.py`, `src/tools/audio_transcribe.py`) for the case where raw call
+recordings are obtained directly, for example through a future data sharing request, rather
+than the pre transcribed export in scope now. That value is deliberately not added to
+`db/schema.sql`'s `source.modality` check yet, since no Phase 1 source populates it; per the
+schema file's own frozen-unless-justified rule, it gets added there together with whichever
+future source is the first to actually need it.
 
 ## 5. In scope for Phase 1
 

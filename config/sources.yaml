@@ -354,20 +354,22 @@ sources:
   - id: kcc_chakshu
     name: ICAR-IASRI Kisan Call Centre query and response archive (KCC-CHAKSHU)
     base_url: https://kcc-chakshu.icar.gov.in/
-    modality: voice_audio
+    modality: api_csv
     languages: [en, hi]
     licence: official_unstated
     status: verified
     maps_to: [advisories]
     notes: >
-      Voice and audio modality source. Farmer queries are placed by phone to
-      the Kisan Call Centre and answered by Farm Tele Advisors; ICAR-IASRI
-      distributes the compiled result as district and month wise query and
+      The project's source for the voice/audio origin channel: farmer queries are
+      placed by phone to the Kisan Call Centre and answered by Farm Tele Advisors.
+      ICAR-IASRI distributes the compiled result as district and month wise query and
       answer text (BlockName, DistrictName, StateName, CreatedOn, Crop,
       QueryType, QueryText, KccAns), filterable to Chhattisgarh. Because the
-      export is already transcribed, it is read deterministically through
-      tools.api_csv rather than tools.audio_transcribe; the Whisper based
-      audio path in src/tools/audio_transcribe.py is reserved for raw call
+      export is already transcribed, modality is set to api_csv, matching what is
+      actually read, and it is not read through tools.audio_transcribe. That
+      Whisper based audio path in src/tools/audio_transcribe.py, and the
+      corresponding voice_audio value in src/router/router.py's Modality enum,
+      are reserved for raw call
       recordings if those are obtained directly rather than this pre
       transcribed export.
 

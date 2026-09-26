@@ -172,3 +172,22 @@ Candidate source count moves from 33 (24 verified, 7 needing verification, 2
 gaps) to 36 (26 verified, 8 needing verification, 2 gaps). Workbook Sheet 2,
 `config/sources.yaml`, `docs/phase1/statement_of_purpose.md` and
 `docs/phase1/agent_tool_plan.md` updated accordingly.
+
+- **Modality tag mismatch corrected.** `config/sources.yaml` had tagged
+  `kcc_chakshu` with `modality: voice_audio` while its own notes said the
+  export is pre transcribed and read via `tools.api_csv` — a direct
+  contradiction, and one `db/schema.sql`'s `source.modality` check would
+  have rejected outright, since that check only allows `api_csv`,
+  `html_table`, `digital_pdf`, `scanned_pdf_ocr`. Retagged `kcc_chakshu` to
+  `modality: api_csv`, matching what is actually read. Every row in
+  `config/sources.yaml` now uses a modality value `db/schema.sql` accepts, so
+  Phase 1 still runs on four ingestion modalities, not five. Left
+  `db/schema.sql` itself untouched: the `voice_audio` value on the `Modality`
+  enum in `src/router/router.py` and the `tools.audio_transcribe` (Whisper)
+  stub remain reserved for a future raw-recording source, and per the
+  schema's own frozen-unless-justified rule get added to the database check
+  only once a real source needs them. Reworded the "five modalities" claims
+  in `README.md`, the workbook (Sheet 1 rows 19 and 35, Sheet 2 row 40) and
+  `docs/phase1/statement_of_purpose.md` section 4c to match: four modalities
+  in active use, one voice/audio-origin source (KCC-CHAKSHU) read via the
+  same API/CSV path as any other structured export.
