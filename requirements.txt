@@ -1,0 +1,30 @@
+# Core
+pyyaml>=6.0
+pandas>=2.0
+requests>=2.31
+
+# Database
+SQLAlchemy>=2.0
+
+# Document tools
+pdfplumber>=0.11
+pypdf>=4.0
+
+# OCR. Devanagari support required for the Hindi document path
+pytesseract>=0.3.10
+Pillow>=10.0
+
+# HTML
+beautifulsoup4>=4.12
+lxml>=5.0
+playwright>=1.44
+
+# Model and adapter training
+transformers>=4.40
+peft>=0.11
+datasets>=2.19
+accelerate>=0.30
+bitsandbytes>=0.43
+
+# Testing
+pytest>=8.0

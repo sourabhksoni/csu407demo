@@ -1,0 +1,44 @@
+# LoRA adapter configuration.
+# Base model is set in Phase 2 after confirming its licence permits fine tuning
+# and redistribution of adapters. Adapter weights are submitted, not the base model.
+
+base_model: null
+output_dir: models/adapters/cg-agri-extract-v1
+
+lora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: none
+  task_type: CAUSAL_LM
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+quantisation:
+  load_in_4bit: true        # QLoRA. Set false for plain LoRA if memory allows.
+  bnb_4bit_compute_dtype: bfloat16
+  bnb_4bit_quant_type: nf4
+
+training:
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 2.0e-4
+  warmup_ratio: 0.03
+  lr_scheduler_type: cosine
+  logging_steps: 10
+  save_strategy: epoch
+
+data:
+  train_file: data/processed/extraction_train.jsonl
+  # No validation_file pointing at data/eval/. The held out set is never seen
+  # during training, not even for early stopping. Carve a validation split out
+  # of the training file instead.
+  validation_split: 0.1
+
+# Training weighting. The adapter exists for the cases where prompting is
+# weakest, so the corpus is deliberately skewed towards them.
+sampling_weights:
+  scanned_pdf_ocr: 0.40
+  digital_pdf: 0.40
+  html_table: 0.15
+  api_csv: 0.05

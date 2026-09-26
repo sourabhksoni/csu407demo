@@ -1,0 +1,32 @@
+# Scraper selectors live here, never in code.
+# The brief warns that portal redesigns break scrapers. Keeping selectors in
+# configuration makes a redesign a config edit rather than a code change.
+
+agmarknet:
+  state_select: "#ddlState"
+  commodity_select: "#ddlCommodity"
+  date_from: "#txtDate"
+  results_table: "table.tableagmark_new"
+  rate_limit_seconds: 3
+
+cgswc:
+  listing_table: "table"
+  rate_limit_seconds: 3
+
+enam:
+  trade_endpoint: "/web/Ajax_ctrl/trade_data_list"
+  rate_limit_seconds: 3
+
+imd_agrimet:
+  state_select: "select[name='state']"
+  district_select: "select[name='district']"
+  category_select: "select[name='category']"
+  advisory_body: "div.advisory-content"
+  rate_limit_seconds: 5
+
+# Global scraping policy. Applies to every source above.
+policy:
+  respect_robots_txt: true
+  user_agent: "CS-FU-407-Team10-Academic-Crawler"
+  max_requests_per_minute: 20
+  prefer_bulk_download: true

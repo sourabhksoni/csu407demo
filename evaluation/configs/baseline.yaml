@@ -1,0 +1,25 @@
+# Model A. Base LLM plus prompt, no adapter.
+name: baseline
+base_model: null            # set in Phase 2, licence checked for fine tuning first
+adapter_path: null          # the one field that differs from adapted.yaml
+eval_set: data/eval/extraction_eval.jsonl
+prompt_file: models/configs/extraction_prompt.txt
+
+schema_fields:
+  - crop
+  - district
+  - season
+  - year
+  - area
+  - production
+  - yield
+  - unit
+
+numeric_fields:
+  - area
+  - production
+  - yield
+
+generation:
+  temperature: 0.0
+  max_new_tokens: 512
